@@ -1,0 +1,24 @@
+[project]
+authors = ["chend <chend@janelia.hhmi.org>"]
+channels = ["conda-forge"]
+description = "Add a short description here"
+name = "n5-zarr"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+jupyterlab = "*"
+pixi-kernel = "*"
+python = "3.10.*"
+numpy = ">=2.0.1,<3"
+zarr = ">=2.18.2,<3"
+numcodecs = ">=0.12.1,<0.13"
+pathlib = ">=1.0.1,<2"
+ipykernel = ">=6.29.5,<7"
+crc32c = ">=2.7.post1,<3"
+fsspec = ">=2024.9.0,<2025"
+
+[pypi-dependencies]
+tensorstore = ">=0.1.64, <0.2"
