@@ -1,12 +1,24 @@
 import logging
 import tensorstore as ts
-from crc32c import crc32c
+import google_crc32c
+import crc32c as old_crc32c
 import numpy as np
 import sys
 import os
 import json
 
 logger = logging.getLogger(__name__)
+
+def crc32c(buffer):
+    if isinstance(buffer, np.ndarray):
+        buffer = buffer.tobytes()
+    checksum = google_crc32c.value(buffer)
+    checksum2 = old_crc32c.crc32c(buffer)
+    if checksum == checksum2:
+        logger.debug("Checksums agree between google_crc32c, {checksum}, and crc32c, {checksum2}, packages")
+    else:
+        raise Exception(f"Checksums do not agree between google_crc32c, {checksum}, and crc32c, {checksum2}, packages")
+    return checksum
 
 def zarr3_read_and_checksum_array(store_path):
     try:
